@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="mrp_planning_calculate_bom_act" model="ir.actions.server">
+            <field name="name">Calculate BoM</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_mrp_planning_report"/>
+            <field name="state">code</field>
+            <field name="code">self.calculate(cr, uid, ids, context=context)</field>
+        </record>
+        <record id="mrp_planning_report_form_view" model="ir.ui.view">
+            <field name="name">mrp.planning.report.fields.form</field>
+            <field name="model">mrp.planning.report</field>
+            <field name="arch" type="xml">
+                <form string="Planning" version="7.0">
+                    <group>
+                        <group>
+                            <field name="year"/>
+                        </group>
+                        <group>
+                            <field name="month"/>
+                        </group>
+                        <group>
+                            <button name="calculate_bom" type="object" string="Calculate BoM"/>
+                        </group>
+                    </group>
+                    <separator/>
+                    <notebook>
+                        <page string="Planning Products">
+                            <field name="products" widget="one2many_list">
+                                <tree string="Products">
+                                    <field name="product_id"/>
+                                    <field name="qty"/>
+                                    <field name="prod_uom"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Planning BoM">
+                            <field name="boms" widget="one2many_list">
+                                <tree string="BoMs">
+                                    <field name="product_id"/>
+                                    <field name="qty"/>
+                                    <field name="bom_uom"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+        <record id="mrp_planning_report_tree_view" model="ir.ui.view">
+            <field name="name">mrp.planning.report.tree</field>
+            <field name="model">mrp.planning.report</field>
+            <field name="arch" type="xml">
+                <tree string="Mrp Planning">
+                    <field name="month"/>
+                </tree>
+            </field>
+        </record>
+        <record id="mrp_planning_search_per_month_view" model="ir.ui.view">
+            <field name="name">mrp.planning.search.per.month</field>
+            <field name="model">mrp.planning.report</field>
+            <field name="arch" type="xml">
+                <search>
+                    <group string="Group By">
+                        <filter name="group_by_year" string="Year" context="{'group_by': ['year']}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="mrp_planning_report_per_month_action" model="ir.actions.act_window">
+            <field name="name">Planning per months</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mrp.planning.report</field>
+            <field name="view_type">form</field>
+            <field name="context">{'search_default_group_by_year': 1}</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="mrp_planning_search_per_month_view"/>
+        </record>
+        <menuitem name="Planning" parent="mrp.menu_mrp_planning"
+            id="menu_mrp_planning_report_per_month_menu"
+            action="mrp_planning_report_per_month_action"
+            sequence="3"/>
+    </data>
+</openerp>
