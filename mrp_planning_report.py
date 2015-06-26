@@ -82,7 +82,7 @@ class mrp_planning_report(osv.osv):
                                     planning_report_bom.write(cr, uid, b_id, {'qty': sum_qty})
                             else:
                                 planning_report_bom.create(cr, uid, bom_line)
-                        
+        return True
                         
 class mrp_planning_report_prod(osv.osv):
 
