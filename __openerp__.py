@@ -29,7 +29,9 @@
     'description': """
 bla bla bla
     """,
-    'data': ['mrp_planning_report.xml'],
+    'data': ['mrp_planning_report.xml',
+        'mrp_planning_report_report.xml'
+    ],
     'installable': True,
     'auto_install': False,
 }
