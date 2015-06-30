@@ -44,7 +44,7 @@ class mrp_planning_bom(report_sxw.rml_parse):
         return lst
 
 
-        def _get_period(self, form):
+    def _get_period(self, form):
         period = str(form['year']+'/'+form['month'])
         return period
 
