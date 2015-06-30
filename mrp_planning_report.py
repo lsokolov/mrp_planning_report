@@ -25,6 +25,8 @@ import calendar
 from datetime import datetime
 from openerp import SUPERUSER_ID
 
+
+
 class mrp_planning_report(osv.osv):
 
     _name = 'mrp.planning.report'
@@ -83,7 +85,27 @@ class mrp_planning_report(osv.osv):
                             else:
                                 planning_report_bom.create(cr, uid, bom_line)
         return True
-                        
+        
+        
+    def print_report(self, cr, uid, ids, context=None):
+        """
+        To get the period and print the report
+        @return : return report
+        """
+        if context is None:
+            context = {}
+        datas = {'ids': ids}
+        res = self.read(cr, uid, ids, ['year','month'], context=context)[0]
+        if res:
+            datas['form'] = res
+        return {
+            'type': 'ir.actions.report.xml',
+            'report_name': 'mrp.planning.bom',
+            'datas': datas,
+       }
+    
+    
+    
 class mrp_planning_report_prod(osv.osv):
 
     _name = 'mrp.planning.report.prod'

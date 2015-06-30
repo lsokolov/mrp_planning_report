@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+            id="report_mrp_planning_bom"
+            string="Planning products"
+            model="mrp.planning.report"
+            name="mrp.planning.bom"
+            rml="mrp_planning_report/report/mrp_planning_bom.rml"
+            menu="False"
+            auto="False"/>
+    </data>
+</openerp>
